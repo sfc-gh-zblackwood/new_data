@@ -1,9 +1,5 @@
-from nbformat import write
 import streamlit as st
 import pandas as pd
-import numpy as np
-import ydata_profiling
-from streamlit_ydata_profiling import st_profile_report
 from ydata_profiling import ProfileReport
 
 
@@ -18,14 +14,14 @@ uploaded_file = st.sidebar.file_uploader("Upload your input Excel file", type="x
 if uploaded_file is not None:
     st.markdown('---')
     input_df = pd.read_excel(uploaded_file, engine="openpyxl")
-    
+
     profile = ProfileReport(input_df, title="New Data for profiling")
 
     st.subheader("Detailed Report of the Data Used")
 
     st.write(input_df)
 
-    st_profile_report(profile)    
-    
+    st.html(profile.html)
+
 else:
     st.write("You did not upload the new file")
